@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{hyperref}
+
+\title{Snapshot 1 - 4 Objectives Document}
+\author{AI Judge Project Team}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Snapshot 1: Core System Initialization}
+
+\textbf{Objective:} \\
+Describe the goals for the start of the AI Judge project. Establish the foundational components of the system, including setting up the project environment, selecting the initial machine learning model, and building basic REST API endpoints for health checks and prediction. The goal is to verify that the core infrastructure can accept input, return output, and handle invalid data without system failure.
+
+\textbf{Key Goals:}
+\begin{itemize}
+  \item Repository setup and toolchain configuration
+  \item Initial model integration (basic I/O only)
+  \item Create and verify \texttt{/health} and \texttt{/predict} endpoints
+  \item Execute basic test cases and generate TestRail summary
+\end{itemize}
+
+\section*{Snapshot 2: Bias Detection Feature Implementation}
+
+\textbf{Objective:} \\
+Reflect on what was completed in Snapshot 1: core infrastructure, basic API, and model integration. This phase aims to extend system functionality by integrating a fairness and bias detection module. This feature analyzes model outputs for potential bias across demographic categories and reports results based on fairness thresholds.
+
+\textbf{Key Goals:}
+\begin{itemize}
+  \item Add \texttt{/fairness-report} endpoint
+  \item Handle missing demographic data gracefully
+  \item Detect and flag bias above set thresholds
+  \item Ensure clean and consistent output formatting
+  \item Execute bias detection tests and capture results
+\end{itemize}
+
+\section*{Snapshot 3: Security \& Access Control Enforcement}
+
+\textbf{Objective:} \\
+Reflect on successfully integrating the bias detection module in Snapshot 2. The goal of this phase is to implement authentication and role-based authorization mechanisms to control access to sensitive operations. This ensures that only permitted users can access specific endpoints and that the system securely handles tokens and session expiration.
+
+\textbf{Key Goals:}
+\begin{itemize}
+  \item Introduce a login flow with access tokens
+  \item Restrict endpoints to specific user roles
+  \item Handle expired and missing tokens
+  \item Validate secure rejection of unauthorized access
+  \item Record results in TestRail
+\end{itemize}
+
+\section*{Snapshot 4: Final Integration and Reflection}
+
+\textbf{Objective:} \\
+Reflect on the full system development cycle, core infrastructure, fairness module, and security features. In this final phase, the goal is to validate the complete system in an end-to-end scenario and provide a thoughtful reflection on accomplishments and areas for future work.
+
+\textbf{Key Goals:}
+\begin{itemize}
+  \item Validate entire system flow (login → predict → report)
+  \item Verify system stability under simulated load
+  \item Confirm integration of all major features
+  \item Outline possible future improvements such as integrating explainable AI (XAI) features, expanding model training with real-world legal datasets, developing multilingual support, and enhancing audit trail transparency
+  \item Recommend next-phase milestones, including compliance assessments, deployment planning, and user feedback collection for iterative design
+\end{itemize}
+
+\end{document}
