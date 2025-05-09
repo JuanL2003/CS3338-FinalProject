@@ -1,0 +1,345 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{mathptmx}
+\usepackage{hyperref}
+\usepackage{tocloft}
+
+\geometry{margin=1in}
+\titleformat{\section}{\fontsize{20}{22}\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\fontsize{14}{16}\bfseries}{\thesubsection.}{1em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Software Requirements Specification}
+\rhead{AI Judge}
+\rfoot{\thepage}
+
+\title{\textbf{Software Requirements Specification}\\[1ex] \Large AI Judge}
+\author{Hang Bao, Juan La Serna, Toran Tran, Steven Ariza-Arzate\\CS 3338 Group 6}
+\date{April 22, 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+\section{Introduction}
+\subsection{Purpose}
+The purpose of this document is to establish a vision of our AI Judge software version 1.0. The document will serve as the foundation for the system design, code implementation, and testing. It will cover what the system will do, what features it contains, and the constraints of the system.
+
+\subsection{Intended Audience and Reading Suggestions}
+
+This SRS (Software Requirements Specification) is for developers, project managers, and documentation writers. The developer should read the entire documentation to gain the full context of the project and be able to report anything that may hinder the goal of this project. Project managers should only read section 3 and 5 to gain the necessary context to help the team go on at a steady pace. Documentation writers should only read section 3 to gain the necessary context to help the team go on at a steady pace. Server Architecture should only read sections 3 and 4 to get the necessary context to help the team go on at a steady pace.
+
+\subsection{Product Scope}
+
+The software product will be called ``AI Judge''. AI judges are designed to simulate judicial decision-making using AI. It allows users to submit a legal case description and then generate a verdict based on the case information provided.
+
+\subsection{Definitions, Acronyms, and Abbreviations}
+
+\begin{itemize}
+    \item NLP - Natural Language Processing
+    \item AI - Artificial Intelligence
+\end{itemize}
+
+
+
+\subsection{References}
+
+\begin{itemize}
+    \item IEEE Std 830-1998 – IEEE Recommended Practice for Software Requirements Specifications\\
+    \href{https://ieeexplore.ieee.org/document/720574/references#references}{https://ieeexplore.ieee.org/document/720574/references#references}
+
+    \item ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'' – Devlin et al., 2018\\
+    \href{https://arxiv.org/abs/1810.04805}{https://arxiv.org/abs/1810.04805}
+
+    \item spaCy Documentation – \href{https://spacy.io/}{https://spacy.io/}
+\end{itemize}
+
+
+\section{Overall Description}
+The Judicial process often involves complex legal terms and assessing case facts against the law and precedent. Therefore, we need a simulated platform that can demonstrate how artificial intelligence performs basic judicial processes. The goal of the AI Judge System is to provide a user-friendly and academic platform that uses the legal case information provided by the user, evaluates it through a decision-making engine, and produces a human-understandable verdict.
+
+\subsection{System Analysis}
+
+The AI Judge is designed to simulate the judicial decision-making process by using the case information provided by the user and applying an AI system to generate verdicts along with an explanation and reasoning.
+
+\textbf{Goals:}
+\begin{itemize}
+    \item \textbf{Legal Reasoning Simulation:} Provide an educational platform that demonstrates how AI can perform simplified legal judgment.
+    \item \textbf{Transparency:} Ensure that each verdict is easy to understand and contain a human-readable explanation of how the conclusions were made.
+    \item \textbf{Accessibility:} Provide an intuitive and responsive interface suitable for students, researchers, and educators.
+\end{itemize}
+
+\textbf{Technical Hurdle:}
+\begin{itemize}
+    \item \textbf{Natural Language Understanding:} NLP models are often ambiguous and complex.
+    \item \textbf{Explainable AI:} Verdict must be understandable to users, therefore require interpretable output.
+    \item \textbf{Scalability and Modularity:} Systems should be designed in a way that allows future integration with real legal databases or advanced reasoning tools.
+\end{itemize}
+
+\textbf{Solution:}
+\begin{itemize}
+    \item \textbf{Natural Language Understanding:} Use pre-trained language models, such as BERT.
+    \item \textbf{Explainable AI:} To be Decided.
+    \item \textbf{Scalability and Modularity:} To be Decided.
+\end{itemize}
+
+\subsection{Product Perspective}
+
+The AI Judge System is a standalone application that simulates judicial decision-making process using artificial intelligence. It serves as a researching and education tool, which is designed to show how AI can process legal cases and provide reasonable verdicts based on the information. Here are the components of the system:
+
+\begin{itemize}
+    \item \textbf{User Interface:} A simple user interface allowing users to enter case description, evidence, and receive verdicts and explanations.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Natural Language Engine:} Reading user's input and identifying important details, such as name, date, and key information.
+    \item \textbf{Decision Engine:} Using rule and logic to determine the verdict based on the information provided.
+    \item \textbf{Reason:} Based on the verdict and case information, generate a human-readable explanation.
+\end{itemize}
+
+\subsection{Product Functions}
+
+\begin{itemize}
+    \item \textbf{Case Input:} Provide a user interface that allows the user to input all the necessary data.
+    \item \textbf{Information Extraction:} Analyze the input text and detect all the important information such as names, dates, facts, and more; process that information through the natural language engine and convert the output to a structured format for analysis.
+    \item \textbf{Decision Generator:} User-designed Decision engine to generate the most appropriate verdict based on the facts provided by the NLP.
+    \item \textbf{Explanation Generator:} Create a human-readable explanation that justifies the decision made by the system.
+    \item \textbf{Result Display:} Display the result on the user interface.
+\end{itemize}
+
+\subsection{User Classes and Characteristics}
+
+\textbf{Developers:}
+\begin{itemize}
+    \item \textbf{Frequency:} Moderate to High.
+    \item \textbf{Functions:} Using the API provided by the system, such as NLP, model integration, and debugging.
+    \item \textbf{Expertise:} High.
+    \item \textbf{Security:} Elevated.
+    \item \textbf{Importance:} Most important.
+\end{itemize}
+
+\textbf{Law Students / Legal Researchers:}
+\begin{itemize}
+    \item \textbf{Frequency:} High.
+    \item \textbf{Functions:} Heavily use the input interface to submit the case and the display interface to output the verdicts and explanation.
+    \item \textbf{Expertise:} High.
+    \item \textbf{Security:} Elevated.
+    \item \textbf{Importance:} Very important.
+\end{itemize}
+
+\subsection{Operating Environment}
+
+The system is designed to be operated within an academic and research environment. It is intended to run on modern devices used by the students and researchers. For now, this system will not be deployed in a real-world legal environment due to the instability of the LLM.
+
+\subsection{Design and Implementation Constraints}
+
+Here are the factors that will influence the design and implementation of the AI:
+
+\begin{itemize}
+    \item \textbf{Data Sync and Speed:} The engine we use will likely impact how fast the system’s analysis runs. Therefore, frequent syncing may slow the system down.
+\end{itemize}
+
+\subsection{User Documentation}
+
+Documentation that will assist development: To be determined.
+
+
+
+\section{External Interface Requirements}
+
+This section explains how the AI Judge system interacts with external interfaces. In this section, the following will be covered: high-level descriptions of the user interface, hardware and software compatibility, and communication protocols made for non-technical readers to understand how the system is accessed and connected.
+
+\subsection{User Interfaces}
+
+\textbf{Overview:} The Judge AI offers a secure web-based interface that is accessible through desktops, providing AI-generated verdicts to cases using input from the user to get case details and using a bias detection model to ensure the data and predictions are as unbiased as intended. To ensure maximum security, only admin-level users may view the predictions of the AI Judge.
+
+\textbf{General User Interface:}
+\begin{itemize}
+    \item A form for simple input for case details (character and numerical inputs)
+    \item The interface displays the prediction result once the process is complete.
+    \item The interface makes use of a bias detection model to provide visual flagging for data that may be heavily biased based on demographic impact.
+\end{itemize}
+
+\textbf{Admin Level Interface:}
+\begin{itemize}
+    \item Able to view user roles and access restrictions for all registered users.
+    \item Able to access the prediction endpoint to view the process, and able to access system logs.
+    \item Able to download fairness reports and has access to model version controls.
+\end{itemize}
+
+\subsection{Hardware Interfaces}
+
+\textbf{Supported Devices:}
+\begin{itemize}
+    \item \textbf{Desktops and Laptops:} For users using Windows, macOS, and Linux operating systems.
+\end{itemize}
+
+\textbf{No Specialized Hardware Required:} The application does not require any special hardware beyond an internet-enabled device with a web browser.
+
+\subsection{Software Interfaces}
+
+\textbf{MySQL Database:} The app uses a MySQL database for data storage, including user information, case data, system logs, and prediction histories.
+
+\textbf{RESTful API:} The app’s backend uses RESTful API endpoints for case submission, prediction generation, fairness reporting, and admin-level controls.
+
+\textbf{OAuth 2.0 Authentication:} Uses this protocol for login, session management, and secure role-based access.
+
+\textbf{External AI Libraries:} Integrated core models using TensorFlow or PyTorch as specific libraries.
+
+\subsection{Communications Interfaces}
+
+\textbf{HTTPS Protocol:} All data transmissions between the client (browser) and the server occur over HTTPS, ensuring data security and encryption.
+
+\textbf{System Alerts:} System errors and prediction failures are logged and flagged through in-app notifications.
+
+\textbf{Session Handling:} Token authentication ensures only valid users can maintain active sessions, with timeouts and logouts after detecting a period of inactivity.
+
+\section{Requirements Specification}
+
+This section specifies the system requirements, including functionality, database usage, and constraints for the AI Judge.
+
+\subsection{Functional Requirements}
+
+\subsubsection{User Registration and Authentication}
+\begin{itemize}
+    \item The system shall allow new users to register and assign them roles (Judge or Technician or Administrator).
+    \item The system shall authenticate users through the use of OAuth 2.0.
+    \item The system shall restrict endpoint access based on user role.
+\end{itemize}
+
+\subsubsection{Case Submission and Prediction}
+\begin{itemize}
+    \item The system shall allow users to submit case data through a secure form.
+    \item The system shall process the data through an AI model and return a decision recommendation.
+    \item The system shall log each prediction request and result.
+\end{itemize}
+
+\subsubsection{Bias Detection and Fairness Reports}
+\begin{itemize}
+    \item The system shall evaluate prediction outputs against demographic fields.
+    \item The system shall flag any statistically significant bias in results.
+    \item The system shall generate a downloadable fairness report.
+\end{itemize}
+
+\subsubsection{Administrative Controls}
+\begin{itemize}
+    \item The system shall allow admins to view system logs.
+    \item The system shall allow role management at an admin-level access (promote/demote users).
+    \item The system shall maintain an audit trail for each case handled.
+\end{itemize}
+
+\subsection{Logical Database Requirements}
+
+\subsubsection{Data Types Used by System}
+\begin{itemize}
+    \item User accounts (ID, name, email, role, password hash)
+    \item Case data (details, submission timestamp, assigned user)
+    \item Prediction logs (input, output, confidence, timestamp)
+    \item Fairness metrics and reports
+    \item System logs and role activity
+\end{itemize}
+
+\subsubsection{Frequency of Use}
+\begin{itemize}
+    \item Case submissions and predictions occur daily.
+    \item Admin and technician activities logged per session.
+    \item Fairness reports are generated on demand or per batch.
+\end{itemize}
+
+\subsubsection{Accessing Capabilities}
+\begin{itemize}
+    \item Judges: Submit cases, view results, and download reports
+    \item Technicians: Monitor model performance and flag issues
+    \item Admins: Full control over users, logs, and model behavior
+\end{itemize}
+
+\subsubsection{Data Entities and Relationships}
+\begin{itemize}
+    \item Users (1-to-many with cases)
+    \item Cases (1-to-1 with prediction results)
+    \item Reports (linked to case)
+    \item Audit logs (linked to users)
+\end{itemize}
+
+\subsubsection{Integrity Constraints}
+\begin{itemize}
+    \item Unique emails per user
+    \item Role constraints enforced by the access layer
+    \item Foreign keys for all case-user and report-case links
+    \item No prediction or fairness report is accepted without a valid input schema
+\end{itemize}
+
+\subsubsection{Data Retention Requirements}
+\begin{itemize}
+    \item Case data and prediction history retained for 5 years
+    \item Audit logs and fairness reports are retained for internal compliance
+    \item Deletion upon admin request or regulatory requirement
+\end{itemize}
+
+\subsection{Design Constraints}
+\begin{itemize}
+    \item Must operate within web browser environments
+    \item Must follow RESTful conventions for all service endpoints
+    \item Must scale to support 500–1000 concurrent users securely
+    \item System latency should remain under 3 seconds for prediction return
+    \item Sensitive data must be encrypted both at rest and in transit
+\end{itemize}
+
+\section{Other Nonfunctional Requirements}
+
+\subsection{Performance Requirements}
+\begin{itemize}
+    \item The AI Judge system should support at least 1 active user at a time for minimal deployment, but be capable of scaling to support multiple legal professionals per institution.
+    \item The system should handle real-time case data input and return predictions and bias reports within 3 seconds during peak hours.
+    \item Prediction results should be processed and returned within 1 second in 90\% of requests.
+    \item Daily logs and batch reports should be processed with a maximum delay of 1.5 hours.
+\end{itemize}
+
+\subsection{Safety Requirements}
+\begin{itemize}
+    \item Prediction history and user interactions shall be autosaved to prevent data loss.
+    \item The system shall adhere to legal data protection standards and comply with regulations governing judicial data handling.
+\end{itemize}
+
+\subsection{Security Requirements}
+\begin{itemize}
+    \item All users must authenticate via OAuth 2.0.
+    \item Two-factor authentication is strongly recommended for administrator and technician roles.
+    \item All communication between clients and servers must be encrypted using TLS 1.2 or higher.
+    \item Sensitive data such as personal case info and prediction outcomes must be encrypted both in transit and at rest.
+\end{itemize}
+
+\subsection{Software Quality Attributes}
+\textbf{Availability:} The system should maintain 99.9\% uptime with less than 10 minutes of unplanned downtime every two months.
+
+\textbf{Reliability:} Prediction and bias evaluation modules must maintain 99.9\% accuracy in processing transactions.
+
+\textbf{Usability:} The interface should be intuitive and require no specialized training.
+
+\textbf{Maintainability:} The codebase should follow clean architecture principles and common conventions to support future development.
+
+\subsection{Business Rules}
+\begin{itemize}
+    \item \textbf{User Roles:} Judges may submit cases and view results; Technicians monitor AI operations; Admins manage users, access logs, and oversee fairness metrics.
+    \item \textbf{Data Access:} Each role shall have visibility into only the data relevant to their scope.
+    \item \textbf{System Monitoring:} Admins shall have access to analytics dashboards summarizing system usage, prediction counts, and flagged bias events.
+\end{itemize}
+
+\section{Legal and Ethical Considerations}
+
+\begin{itemize}
+    \item The AI Judge will not use or collect user data from the public internet without explicit consent.
+    \item Training data will be sourced from legal professionals and case documents shared with institutional approval.
+    \item The project must align with ethical AI guidelines, ensuring model transparency, fairness in decisions, and responsible use of AI in legal recommendations.
+    \item All data usage must comply with local and national data protection laws.
+    \item Predictions should not be the only thing taken into consideration; this is only a tool to help assess a case and give a prediction of the verdict, and is not guaranteed to match the final verdict.
+\end{itemize}
+
+\end{document}

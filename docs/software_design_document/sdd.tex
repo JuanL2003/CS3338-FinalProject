@@ -1,0 +1,302 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{mathptmx}
+\usepackage{hyperref}
+\usepackage{tocloft}
+\geometry{margin=1in}
+\titleformat{\section}{\fontsize{20}{22}\bfseries}{\thesection.}{1em}{}
+\titleformat{\subsection}{\fontsize{14}{16}\bfseries}{\thesubsection.}{1em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Software Design Document}
+\rhead{AI Judge}
+\rfoot{\thepage}
+
+\title{\textbf{Software Design Document}\\[1ex] \Large AI Judge}
+\author{Hang Bao, Juan La Serna, Toran Tran, Steven Ariza-Arzate\\CS 3338 Group 6}
+\date{April 20, 2025}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Purpose}
+The purpose of this document is to describe the architecture and design of the AI Judge System, version 1.0 — a software that uses artificial intelligence to simulate judge decision-making. As this is version 1.0, future features such as voice recognition and video recognition are not included.
+
+\subsection{Document Conventions}
+The document follows standard and basic conventions. The font typeface is Times New Roman. The Section titles are formatted in bold, size 20, the subsection titles use bold, size 14, and the main text uses size 12.
+
+\subsection{Intended Audience and Reading Suggestions}
+Developers, legal researchers, and testers.
+
+\subsection{System Overview}
+The AI Judge System is designed to simulate a judge's decision-making process through artificial intelligence.  Users can provide case data, and the data will be processed through Natural Language Processing (NLP) and a Decision Engine to generate a verdict based on the information provided.
+
+Here are the current features we have:\\
+\textbf{Decision Making}: Accept the user’s case data and provide a verdict with an explanation
+
+\section{Design Considerations}
+\subsection{Assumptions and Dependencies}
+
+\textbf{Assumptions}
+
+\textbf{System Environment:} This project assumes the environment is a controlled, pre-existing academic testing setup, where the LLM can be securely deployed. All testing will take place on local or virtual machines with Docker installed.
+
+\vspace{1em}
+
+\textbf{Related Software:}\\
+The platform assumes that the following software components and libraries are correctly installed and configured:
+\begin{itemize}
+    \item Python (for backend and LLM orchestration)
+    \item Flask (for handling API calls)
+    \item MySQL (for storing essay metadata and score logs)
+    \item TestRail (for managing test cases and results)
+    \item PyTorch \& NumPy (for AI computations and data processing)
+    \item Docker (for containerizing services)
+    \item Git, GitHub, and Jira (for version control and project management)
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{End User:}\\
+Assumes that end-users (researchers and professors) are familiar with:
+\begin{itemize}
+    \item Reviewing AI-generated data
+    \item Grading rubrics and interpretation
+    \item Docker-based deployments and test result interpretation
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Testing Methodology:}\\
+Assumes that TestRail will be used as the primary platform for validation. The evaluation process assumes essays can be scored using consistent benchmarks, and the LLM scoring can be fairly compared to human judgment.
+
+\vspace{1em}
+
+\textbf{Dependencies}
+\begin{itemize}
+    \item Python, Flask, Docker, PyTorch, NumPy, TestRail
+    \item Proper essay formatting in the test dataset
+    \item Access to pre-trained LLMs and evaluation benchmarks
+    \item Correct volume/file path mapping within Docker containers
+    \item Consistent and accurate human-scored essay baselines
+\end{itemize}
+
+\subsection{General Constraints}
+
+\textbf{Platform:} The system operates inside a Dockerized architecture, requiring proper container orchestration and file linking for all services to function.
+
+\vspace{1em}
+
+\textbf{Security:}\\
+Security is a top priority, especially when dealing with academic materials and potentially private student data. HTTPS, restricted API endpoints, and secure access credentials must be enforced.
+
+\vspace{1em}
+
+\textbf{Performance:}\\
+The AI judge must respond within reasonable time frames to allow for batch testing. Optimization strategies should include caching, asynchronous calls, and hardware-aware model deployment.
+
+\vspace{1em}
+
+\textbf{End-User Environment:}\\
+This is a web-based application, accessible via a browser. Users are expected to interact with simple UI elements for inputting essays, running evaluations, and viewing scores.
+
+\vspace{1em}
+
+\textbf{Verification and Validation:}\\
+Unit testing, integration testing, and scoring accuracy validation are all required. TestRail will manage and track these processes.
+
+\vspace{1em}
+
+\textbf{Data Repository Needs:}\\
+MySQL will be used to log AI scores, essay IDs, and metadata. Indexing must be configured for high-speed retrieval during bulk evaluations.
+
+\subsection{Goals and Guidelines}
+
+\begin{itemize}
+    \item \textbf{Raise Awareness:} Showcase where AI fails in replicating human academic judgment to encourage informed use, not replacement.
+
+    \item \textbf{Finish the product by the end of the semester}
+
+    \item \textbf{Clean, intuitive UI:} Ensure the web interface is simple for professors and researchers to operate with minimal training.
+
+    \item \textbf{Stable backend:} Ensure the server can reliably store and retrieve scores, metadata, and human-AI comparison results.
+
+    \item \textbf{Transparent scoring:} The AI’s score rationale (if any) should be logged and viewable, adding to the project's transparency goals.
+\end{itemize}
+
+\subsection{Development Methods}
+
+We adopted a \textbf{hybrid Agile-Waterfall} development methodology:
+
+\begin{itemize}
+    \item \textbf{Agile} principles allow for iterative testing and refinements as feedback from faculty members is gathered.
+
+    \item \textbf{Waterfall} elements are embedded in early project planning—establishing timelines, documentation, and staged milestones.
+
+    \item Tools like \textbf{Jira} (task tracking), \textbf{GitHub} (source control), and \textbf{TestRail} (test management) ensure consistent updates and collaboration between development and testing teams.
+\end{itemize}
+
+\section{Architectural Strategies}
+
+\subsection{Design/Architectural Pattern}
+
+\textbf{Microservices}
+
+\begin{itemize}
+    \item \textbf{Reasoning:} Since distinct components like the LLM, TestRail handler, web UI, and database interact independently, splitting them into services improves modularity and scalability.
+
+    \item \textbf{Trade-offs:} Requires careful orchestration using Docker and possibly Kubernetes later. Added complexity in logging and service discovery.
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Repository Architecture}
+
+\begin{itemize}
+    \item \textbf{Reasoning:} We rely heavily on GitHub for source control and version management. This setup allows developers to experiment and test features in isolation.
+
+    \item \textbf{Trade-offs:} Requires vigilance to avoid merge conflicts or overlapping changes.
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Client-Server Architecture}
+
+\begin{itemize}
+    \item \textbf{Reasoning:} Separates the UI from the backend services for flexibility and scalability. The UI (likely hosted as a lightweight Flask app or similar) interacts with the AI service and database through RESTful APIs.
+
+    \item \textbf{Trade-offs:} Adds complexity over a monolithic setup, requiring good API design and error handling across boundaries.
+\end{itemize}
+
+\subsection{Technology Stack: Godot, MySQL, Canvas API}
+
+\textbf{Godot} (Optional Visual/UX Tool):\\
+Used only if gamified elements or visual score feedback are implemented. Offers lightweight WebAssembly exports and Python-like scripting (GDScript).
+
+\vspace{1em}
+
+\textbf{MySQL:}\\
+Chosen for its stability and developer familiarity. Stores scores, essay metadata, and comparisons.
+
+\vspace{1em}
+
+\textbf{Canvas API} (if integrated):\\
+Considered for educational material integration. Good documentation and direct relevance to academic settings.
+
+\vspace{1em}
+
+\textbf{Docker:}\\
+Standardizes all components into reproducible containers across all systems, reducing environment-based errors.
+
+\vspace{1em}
+
+\textbf{Alternatives Rejected:}
+\begin{itemize}
+    \item \textbf{Unity/Unreal} (too heavy)
+    \item \textbf{PostgreSQL} (more powerful, but steeper learning curve)
+    \item \textbf{SQLite} (not suitable for concurrent multi-user scenarios)
+\end{itemize}
+
+\subsection{UI Paradigm: Gamified/Game-Based}
+
+\textbf{Reasoning:}\\
+Gamification elements (e.g., score comparison badges, AI vs human prediction charts, rank boards for essay accuracy) make the evaluation process more engaging for users. Even researchers may benefit from visual metaphors that simplify AI decision-making.
+
+\vspace{1em}
+
+\textbf{Rejected Alternatives:}\\
+We considered a more traditional academic UI but opted against it due to potential disengagement. We also debated imitating educational apps like Duolingo, but dropped the idea to preserve originality.
+
+\subsection{Software Reuse}
+
+\textbf{LMS API Reuse:}\\
+Canvas or similar APIs may be reused to fetch or simulate assignment data without building infrastructure from scratch.
+
+\vspace{1em}
+
+\textbf{Communication: REST APIs}\\
+REST is lightweight, stateless, and integrates smoothly with front-end services. Ideal for scalable, decoupled service communication.
+
+\vspace{1em}
+
+\textbf{Rejected Alternatives:}
+\begin{itemize}
+    \item \textbf{GraphQL} (adds overhead for simple queries)
+    \item \textbf{WebSockets} (not supported in all engines/tools)
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{GitHub Libraries Used:}
+\begin{itemize}
+    \item \texttt{django-canvas-api-token}, \texttt{dce_course_admin}: Used for integrating Canvas API functionality.
+\end{itemize}
+
+\vspace{1em}
+
+\textbf{Canvas-Docker:}\\
+Provides predefined LMS environments. Chosen over trying to configure LMS instances manually through institutional servers.
+
+\section{System Architecture }
+\subsection{Logical View}
+
+\begin{itemize}
+    \item \textbf{User Interaction Layer (UI/Frontend):}\\
+    Manages all user-facing activities (homepage, save paper, settings) through web interfaces served by NGINX. It interacts with backend services to display data.
+
+    \item \textbf{Business Logic Layer:}\\
+    Handles core functionality like storing paper, and calculating and storing info via backend API services. Acts as a bridge between the UI and the database.
+
+    \item \textbf{Data Layer:}\\
+    Manages persistent storage (user info, paper results) using a MySQL database with Adminer for management. Backend services interact with the database through APIs.
+
+    \item \textbf{Monitoring and Management:}\\
+    Provides system monitoring and administration using Dozzle for logs.
+\end{itemize}
+
+\subsection{Development View}
+
+\begin{itemize}
+    \item \textbf{Web Layer:}\\
+    \textbf{Technology:} NGINX serves static content (HTML, CSS, JavaScript, Python) for fast and efficient frontend delivery.\\
+    \textbf{Source:} Static files are mounted into the NGINX container for easy updates during development.
+
+    \item \textbf{Backend API Layer:}\\
+    \textbf{Technology:} Custom API service (\texttt{questivity-server}) that interacts with the MySQL database using object relational mapping and provides RESTful endpoints.\\
+    \textbf{Source:} The API service is located in the \texttt{server} folder, which contains a Dockerfile for building the service with its dependencies.
+
+    \item \textbf{Database Layer:}\\
+    \textbf{Technology:} MySQL for persistent data storage, managed with Adminer during development.\\
+    \textbf{Source:} Configuration and initialization is handled by Django (made in Python), while initial test data is created by a \textit{post init runner} which makes requests to the API, which updates the database.
+
+    \item \textbf{Technology:} Handling logic, scorekeeping, and student progress tracking.
+
+    \item \textbf{Monitoring Tools:}\\
+    \textbf{Technology:} Tools like Dozzle monitor Docker logs.\\
+    \textbf{Setup:} These tools run in separate containers, with configurations managed through the main Docker Compose file.
+\end{itemize}
+
+\subsection{Process View}
+
+\begin{itemize}
+    \item \textbf{Web Layer $\leftrightarrow$ Backend API:}\\
+    The \textbf{Web Layer} (NGINX) delivers static content and sends HTTP requests to the \textbf{Questivity Server} for dynamic data. This separation ensures efficient front-end delivery and clean API interaction.
+
+    \item \textbf{Questivity Server $\leftrightarrow$ Database Layer:}\\
+    The \textbf{Questivity Server} interacts with the \textbf{MySQL Database} to store and retrieve persistent data. It acts as the intermediary, encapsulating database logic and exposing it via RESTful endpoints using \textit{python language}.
+
+    \item \textbf{Monitoring Tools:}\\
+    \textbf{Dozzle:} monitors system logs and health, ensuring smooth operation, and the server provides admin interfaces for performance tracking.
+\end{itemize}
+
+\end{document}
