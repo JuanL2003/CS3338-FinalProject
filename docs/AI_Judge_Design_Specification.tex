@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+
+\title{Design Specification - AI Judge System}
+\author{CS3338 - Group 6 \\ Juan La Serna, Hang Bao, Steven Ariza-Arzate, Toran Tran}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{1. Pages and Tools}
+
+\subsection*{Home Page}
+\begin{itemize}
+  \item Input case information
+  \item Submit button to process case
+\end{itemize}
+
+\subsection*{Results Page}
+\begin{itemize}
+  \item Shows:
+    \begin{itemize}
+      \item Verdict
+      \item Explanation of the decision
+    \end{itemize}
+\end{itemize}
+
+\section*{2. System Parts}
+\begin{itemize}
+  \item \textbf{NLP Module:} Finds keywords, names, legal terms
+  \item \textbf{Decision Engine:} Makes verdict using AI model
+  \item \textbf{Explanation Module:} Writes short reason for verdict
+\end{itemize}
+
+\section*{3. Packages and Libraries}
+
+\subsection*{Python (Backend)}
+\begin{itemize}
+  \item \texttt{flask} -- web server
+  \item \texttt{transformers} -- for AI model
+  \item \texttt{torch} -- runs the model
+  \item \texttt{spacy} -- text processing
+\end{itemize}
+
+\subsection*{JavaScript (Frontend)}
+\begin{itemize}
+  \item \texttt{react} -- UI framework
+  \item \texttt{axios} -- send requests
+\end{itemize}
+
+\end{document}
